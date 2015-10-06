@@ -3,15 +3,12 @@ package com.example.android.popularmoviesbrynn;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,16 +22,16 @@ public class MainActivityFragment extends Fragment {
 
 
     static final List<String> postersList = Arrays.asList(
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
-            "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg");
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg",
+            "http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg");
 
 
     @Override
@@ -42,29 +39,44 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        GridView gridView = (GridView) rootView.findViewById(R.id.gridView1);
+        GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
 
-        ImageAdapter adapter = new ImageAdapter(getActivity(),
-                android.R.layout.simple_list_item_1, postersList);
+        ImageAdapter adapter = new ImageAdapter(getActivity());
 
         gridView.setAdapter(adapter);
 
+
+
+
         return rootView;
+
+
+
+
     }
 
 
-    private class ImageAdapter extends ArrayAdapter<String>{
-        private List<String> imageList;
-        Context mContext;
+    private class ImageAdapter extends BaseAdapter {
+        private Context mContext;
 
-        public ImageAdapter(Context context, int resource, List<String> objects){
-            super(context, resource, objects);
-            mContext = context;
-            imageList = objects;
+        public ImageAdapter(Context c) {
+            mContext = c;
         }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent){
+        public int getCount() {
+            return mThumbIds.length;
+        }
+
+        public Object getItem(int position) {
+            return null;
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        // create a new ImageView for each item referenced by the Adapter
+        public View getView(int position, View convertView, ViewGroup parent) {
             ImageView imageView;
             if (convertView == null) {
                 // if it's not recycled, initialize some attributes
@@ -75,9 +87,19 @@ public class MainActivityFragment extends Fragment {
             } else {
                 imageView = (ImageView) convertView;
             }
-            Log.e(LOG_TAG, Integer.toString(position));
-            Picasso.with(mContext).load(imageList.get(position)).into(imageView);
+
+            imageView.setImageResource(mThumbIds[position]);
             return imageView;
         }
+
+        // references to our images
+        private Integer[] mThumbIds = {
+                R.drawable.sample_5, R.drawable.sample_5,
+                R.drawable.sample_5, R.drawable.sample_5,
+                R.drawable.sample_5, R.drawable.sample_5,
+                R.drawable.sample_5, R.drawable.sample_5,
+                R.drawable.sample_5, R.drawable.sample_5,
+                R.drawable.sample_5, R.drawable.sample_5
+        };
     }
 }
