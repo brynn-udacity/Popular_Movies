@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,25 +44,18 @@ public class MainActivityFragment extends Fragment {
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
 
         //ImageAdapter adapter = new ImageAdapter(getActivity());
-        ImageAdapter adapter = new ImageAdapter(getActivity(), 0, mThumbIds);
+        ImageAdapter adapter = new ImageAdapter(getActivity(), 0, postersList);
         gridView.setAdapter(adapter);
 
-
-
-
         return rootView;
-
-
-
-
     }
 
 
-    private class ImageAdapter extends ArrayAdapter<Integer> {
+    private class ImageAdapter extends ArrayAdapter<String> {
         private Context mContext;
-        private Integer[] objects;
+        private List<String> objects;
 
-        public ImageAdapter(Context c, int resource, Integer[] o) {
+        public ImageAdapter(Context c, int resource, List<String> o) {
             super(c, resource, o);
             mContext = c;
             objects = o;
@@ -70,7 +65,7 @@ public class MainActivityFragment extends Fragment {
             return mThumbIds.length;
         }
 
-        public Integer getItem(int position) {
+        public String getItem(int position) {
             return null;
         }
 
@@ -90,8 +85,8 @@ public class MainActivityFragment extends Fragment {
             } else {
                 imageView = (ImageView) convertView;
             }
-
-            imageView.setImageResource(mThumbIds[position]);
+            Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg").into(imageView);
+            //imageView.setImageResource(mThumbIds[position]);
             return imageView;
         }
 
