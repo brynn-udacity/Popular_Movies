@@ -62,11 +62,11 @@ public class MainActivityFragment extends Fragment {
         }
 
         public int getCount() {
-            return mThumbIds.length;
+            return objects.size();
         }
 
         public String getItem(int position) {
-            return null;
+            return objects.get(position);
         }
 
         public long getItemId(int position) {
@@ -85,20 +85,11 @@ public class MainActivityFragment extends Fragment {
             } else {
                 imageView = (ImageView) convertView;
             }
-            Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg").into(imageView);
+            Picasso.with(mContext).load(getItem(position)).into(imageView);
             //imageView.setImageResource(mThumbIds[position]);
             return imageView;
         }
 
 
     }
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.sample_5, R.drawable.sample_5,
-            R.drawable.sample_5, R.drawable.sample_5,
-            R.drawable.sample_5, R.drawable.sample_5,
-            R.drawable.sample_5, R.drawable.sample_5,
-            R.drawable.sample_5, R.drawable.sample_5,
-            R.drawable.sample_5, R.drawable.sample_5
-    };
 }
