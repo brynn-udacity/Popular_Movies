@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -41,8 +41,8 @@ public class MainActivityFragment extends Fragment {
 
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
 
-        ImageAdapter adapter = new ImageAdapter(getActivity());
-
+        //ImageAdapter adapter = new ImageAdapter(getActivity());
+        ImageAdapter adapter = new ImageAdapter(getActivity(), 0, mThumbIds);
         gridView.setAdapter(adapter);
 
 
@@ -54,20 +54,23 @@ public class MainActivityFragment extends Fragment {
 
 
     }
+    
 
-
-    private class ImageAdapter extends BaseAdapter {
+    private class ImageAdapter extends ArrayAdapter<Integer> {
         private Context mContext;
+        private Integer[] objects;
 
-        public ImageAdapter(Context c) {
+        public ImageAdapter(Context c, int resource, Integer[] o) {
+            super(c, resource, o);
             mContext = c;
+            objects = o;
         }
 
         public int getCount() {
             return mThumbIds.length;
         }
 
-        public Object getItem(int position) {
+        public Integer getItem(int position) {
             return null;
         }
 
@@ -92,14 +95,15 @@ public class MainActivityFragment extends Fragment {
             return imageView;
         }
 
-        // references to our images
-        private Integer[] mThumbIds = {
-                R.drawable.sample_5, R.drawable.sample_5,
-                R.drawable.sample_5, R.drawable.sample_5,
-                R.drawable.sample_5, R.drawable.sample_5,
-                R.drawable.sample_5, R.drawable.sample_5,
-                R.drawable.sample_5, R.drawable.sample_5,
-                R.drawable.sample_5, R.drawable.sample_5
-        };
+
     }
+    // references to our images
+    private Integer[] mThumbIds = {
+            R.drawable.sample_5, R.drawable.sample_5,
+            R.drawable.sample_5, R.drawable.sample_5,
+            R.drawable.sample_5, R.drawable.sample_5,
+            R.drawable.sample_5, R.drawable.sample_5,
+            R.drawable.sample_5, R.drawable.sample_5,
+            R.drawable.sample_5, R.drawable.sample_5
+    };
 }
